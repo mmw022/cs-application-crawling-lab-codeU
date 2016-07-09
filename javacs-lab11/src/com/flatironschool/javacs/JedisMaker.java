@@ -10,6 +10,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+//added in import
+import java.net.URLDecoder;
+
 import redis.clients.jedis.Jedis;
 
 
@@ -29,10 +32,14 @@ public class JedisMaker {
 		String filename = "resources" + slash + "redis_url.txt";
 		URL fileURL = JedisMaker.class.getClassLoader().getResource(filename);
 
+      //Added in filepath variable
+      String filepath = URLDecoder.decode(fileURL.getFile(), "UTF-8");
 	    	StringBuilder sb = new StringBuilder();
 		BufferedReader br;
 		try {
-			br = new BufferedReader(new FileReader(fileURL.getFile()));
+         
+         //Changed parameter of BufferReader
+			br = new BufferedReader(new FileReader(filepath));
 		} catch (FileNotFoundException e1) {
 			System.out.println("File not found: " + filename);
 			printInstructions();
